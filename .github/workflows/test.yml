@@ -1,4 +1,4 @@
-name: "units-test"
+name: "testing capture"
 on:
   push:
     branches:
