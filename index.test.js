@@ -1,23 +1,17 @@
-const wait = require('./wait');
-const process = require('process');
-const cp = require('child_process');
+
+const fs = require('fs');
 const path = require('path');
 
+const { toMatchImageSnapshot } = require('jest-image-snapshot');
 test('throws invalid number', async () => {
-  await expect(wait('foo')).rejects.toThrow('milliseconds not a number');
-});
+  // eslint-disable-next-line no-undef
+  expect(1).toEqual(1);
+  expect.extend({ toMatchImageSnapshot });
+  
+    const imageAtTestPath = path.resolve(__dirname, './stubs', 'image.png');
+    // imageAtTest is a PNG encoded image buffer which is what `toMatchImageSnapshot() expects
+    const imageAtTest = fs.readFileSync(imageAtTestPath);
+  
+    expect(imageAtTest).toMatchImageSnapshot();
 
-test('wait 500 ms', async () => {
-  const start = new Date();
-  await wait(500);
-  const end = new Date();
-  var delta = Math.abs(end - start);
-  expect(delta).toBeGreaterThanOrEqual(500);
 });
-
-// shows how the runner will run a javascript action with env / stdout protocol
-test('test runs', () => {
-  process.env['INPUT_MILLISECONDS'] = 500;
-  const ip = path.join(__dirname, 'index.js');
-  console.log(cp.execSync(`node ${ip}`, {env: process.env}).toString());
-})

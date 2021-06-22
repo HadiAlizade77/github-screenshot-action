@@ -5,6 +5,9 @@
         "jest": true,
         "node": true
     },
+    "plugins": [
+        "jest"
+    ],
     "extends": "eslint:recommended",
     "globals": {
         "Atomics": "readonly",
@@ -13,6 +16,5 @@
     "parserOptions": {
         "ecmaVersion": 2018
     },
-    "rules": {
-    }
+    "rules": {}
 }
