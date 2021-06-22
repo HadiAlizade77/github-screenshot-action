@@ -1,10 +1,25 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: CI
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: yarn
+    - name: Run tests
+      run: yarn test
+
+name: 'Capture Screenshot'
+description: 'Capture Screenshot on publish'
+on:
+  release:
+    types: [published]
 inputs:
-  milliseconds:  # id of input
+  url:  # id of input
     description: 'number of milliseconds to wait'
     required: true
-    default: '1000'
+    default: 'https://google.com'
 outputs:
   time: # output will be available to future steps
     description: 'The message to output'
